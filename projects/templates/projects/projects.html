@@ -2,39 +2,38 @@
 
 {% block content %}
 
-<h1>Todos os projetos</h1><br>
-<p>conteúdo todos os projetos</p>
-{{message}}
 
-{% if number > 10 %}
+<h1>Projects</h1>
 
-<p> Número é maior que 10</p>
+<table>
 
-{% elif number == 10 %}
+   <tr>
+      <th>ID</th>
+      <th>Project</th>
+      <th>Positive Votes</th>
+      <th>Votes</th>
+      <th></th>
 
-<p> número é exatamente 10 </p>
+   </tr>
+   {% for project in projects %}
 
-{% else %}
-
-<p> número é menor que 10 </p>
-
-{% endif %}
-
-
-
-<hr>
-
-<h1> Projects </h1>
-
-<ul>
-   {% for project in projects%}
-
-   <li>Title: <a href="{% url 'project' project.id %}">{{project.title}}</a> --- {{project.description}} <li>
-
+   <tr>
+      <td>{{project.id}}</td>
+      <td>{{project.title}}</td>
+      <td>{{project.vote_ratio}}%</td>
+      <td>{{project.vote_total}}</td>
+      <td>{{project.created}}</td>
+      <td> <a href="{% url 'project' project.id %}">View</a></td>
+   </tr>
 
    {% endfor %}
 
-</ul >   
+</table>
+
+<hr>
+
+
+
 
 
 
