@@ -2,13 +2,14 @@
 
 {% block content %}
 
-<h1>Único projeto</h1>
+
+<img style="max-width: 500px;" src="{{project.feature_image.url}}">
 
 <h1>{{project.title}}</h1>
 
 <hr>
-  <!-- project.tags.all  -->
-{% for tag in tags  %}
+<!-- project.tags.all  -->
+{% for tag in tags %}
 
 <span style="border:1px solid grey">{{tag}}</span>
 
@@ -19,4 +20,4 @@
 <br>
 <p>{{project.description}}
 
-{% endblock content %}
+  {% endblock content %}
