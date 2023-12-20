@@ -1,6 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Profile
+from django.contrib.auth import login, authenticate
 
+
+
+def loginPage(request):
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+    return render(request, 'users/login_register.html')
 
 # Create your views here.
 def profiles(request):
