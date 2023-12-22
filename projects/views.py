@@ -24,13 +24,21 @@ def project(request, pk):
 
 @login_required(login_url="login")
 def createProject(request):
+    profile = request.user.profile
     form = ProjectForm()
 
     if request.method == "POST":
+        newtags = request.POST.get("newtags").replace(",", " ").split()
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect("projects")
+            project = form.save(commit=False)
+            project.owner = profile
+            project.save()
+
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                project.tags.add(tag)
+            return redirect("account")
 
     context = {"form": form}
     return render(request, "projects/project_form.html", context)
@@ -38,7 +46,9 @@ def createProject(request):
 
 @login_required(login_url="login")
 def updateProject(request, pk):
-    project = Project.objects.get(id=pk)
+    # garante que atualize somente os seus respectivos projetos
+    profile = request.user.profile
+    project = profile.project_set.get(id=pk)
 
     form = ProjectForm(instance=project)
 
@@ -54,7 +64,9 @@ def updateProject(request, pk):
 
 @login_required(login_url="login")
 def deleteProject(request, pk):
-    project = Project.objects.get(id=pk)
+    # garante que delete somente os seus respectivos projetos
+    profile = request.user.profile
+    project = profile.project_set.get(id=pk)
 
     # form = ProjectForm(instance=project)
 
