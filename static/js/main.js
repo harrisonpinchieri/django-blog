@@ -3,27 +3,29 @@
 let searchForm = document.getElementById('searchForm')
 let pageLinks = document.getElementsByClassName('page-link')
 
-//ENSURE SEARCH FORM EXISTS
+//ensure search form exist
 if (searchForm) {
+
     for (let i = 0; pageLinks.length > i; i++) {
         pageLinks[i].addEventListener('click', function (e) {
             e.preventDefault()
-
-            //GET THE DATA ATTRIBUTE
+            //GET THE DATA ATRIBUTE
             let page = this.dataset.page
 
             //ADD HIDDEN SEARCH INPUT TO FORM
             searchForm.innerHTML += `<input value=${page} name="page" hidden/>`
 
-
-            //SUBMIT FORM
+            //submit form
             searchForm.submit()
+
         })
+
     }
+
 }
 
 
-
+/*
 let tags = document.getElementsByClassName('project-tag')
 
 for (let i = 0; tags.length > i; i++) {
@@ -48,3 +50,4 @@ for (let i = 0; tags.length > i; i++) {
 
     })
 }
+*/
