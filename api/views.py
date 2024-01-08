@@ -34,3 +34,24 @@ def getProject(request, pk):
     # vai transformar o objeto em um JSON
     serializer = ProjectSerializer(project, many=False)
     return Response(serializer.data)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def projectVote(request, pk):
+    project = Project.objects.get(id=pk)
+    user = request.user.profile
+    data = request.data
+
+    review, created = Review.objects.get_or_create(
+        onwer=user,
+        project=project,
+    )
+
+    review.value = data["value"]
+    review.save()
+    project.getVoteCount
+
+    print("DATA", data)
+    serializer = ProjectSerializer(project, many=False)
+    return Response(serializer.data)
