@@ -44,7 +44,7 @@ def projectVote(request, pk):
     data = request.data
 
     review, created = Review.objects.get_or_create(
-        onwer=user,
+        owner=user,
         project=project,
     )
 
